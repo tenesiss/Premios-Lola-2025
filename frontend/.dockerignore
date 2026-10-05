@@ -1,0 +1,13 @@
+node_modules
+dist
+.env
+.env.*
+*.log
+coverage
+tests
+test
+__tests__
+test-results
+playwright-report
+.firebase
+*.tsbuildinfo
