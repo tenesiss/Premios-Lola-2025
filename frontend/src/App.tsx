@@ -4,7 +4,6 @@ import NotFound from './components/NotFound';
 import VotePanel from './components/VotePanel';
 
 function App() {
-  console.log('temp log: ', import.meta.env.VITE_FIREBASE_API_KEY);
   return (
     <BrowserRouter>
       <Routes>

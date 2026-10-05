@@ -3,6 +3,7 @@ import { Router } from 'express';
 import { verifyToken } from '../middlewares/auth';
 import { getUserByUID, isUserAdmin } from '../services/userService';
 import { ratelimitCheck } from '../middlewares/ratelimit';
+import { getVotingPolicy } from '../config/votingPolicy';
 
 const router = Router();
 
@@ -11,7 +12,7 @@ router.get('/user-vote-status', verifyToken, ratelimitCheck, async (req, res) =>
   const userId = (req as any).user.uid;
   try {
     const user = await getUserByUID(userId);
-    res.json({ hasVoted: !!user });
+    res.json({ hasVoted: !!user, ...getVotingPolicy(userId) });
   } catch (error: any) {
     res.status(500).json({ error: error.message });
   }

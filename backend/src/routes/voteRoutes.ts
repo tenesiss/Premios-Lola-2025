@@ -1,12 +1,12 @@
 // Express routes for voting and proposals
 import { Router } from 'express';
 import { verifyToken } from '../middlewares/auth';
-import { config } from 'dotenv';
 import { ratelimitCheck } from '../middlewares/ratelimit';
 import { checkAdmin } from '../middlewares/checkAdmin';
 import { getVoteById, incrementVote, getAllProposals, createProposal } from '../services/voteService';
 import { getUserByUID, addUserVote } from '../services/userService';
 import { getVotingState } from '../services/stateService';
+import { getVotingPolicy } from '../config/votingPolicy';
 import { proposalCreateMiddleware } from '../middlewares/proposal.create.middleware';
 import type {
   GetVoteByIdResponse,
@@ -18,8 +18,6 @@ import type {
 } from '../types/voteRoutes';
 
 const router = Router();
-
-config({  path: '../.env', override: true }); // Load environment variables from .env file
 
 // Get vote amount of a given id
 router.get<
@@ -54,8 +52,8 @@ router.post<
     const state = await getVotingState(vote.group);
     if (!state || !state.enabled) return res.status(403).json({ error: 'La votación esta deshabilitada para ese grupo, solo puedes votar durante el evento.' });
     const user = await getUserByUID(userId);
-    console.log(Number(process.env.GROUP_ALLOW_REVOTE));
-    if (user && user.UID !== process.env.VOTE_MASTER && vote.group != Number(process.env.GROUP_ALLOW_REVOTE) && vote.group != 3) {
+    const policy = getVotingPolicy(userId);
+    if (user && !policy.canRepeatVoteAnyGroup && !policy.repeatVoteGroups.includes(vote.group)) {
       return res.status(403).json({ error: 'ERROR: User tried to vote but has already voted. Is this correct?' });
     }
     await incrementVote(id);

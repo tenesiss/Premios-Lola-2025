@@ -67,10 +67,41 @@ build/Release
 
 # Secrets
 .env
+.env.*
+!.env.example
+.secrets/
+secrets/
+credentials*.json
+serviceAccount*.json
+service-account*.json
+*-firebase-adminsdk-*.json
+*.pem
+*.key
+*.p12
+*.pfx
+*.keystore
+root-client.ini
+
+# Database contents and backups
+*.sql
+*.sql.gz
+*.dump
+*.sqlite
+*.sqlite3
+*.db
+
+# Local test folders (at any depth)
+test/
+tests/
+__tests__/
 
 # Build directories
 dist
 build
+.artifacts/
+.local/
+test-results/
+playwright-report/
 
 # Old source codes
 LolaCine-Backend-main

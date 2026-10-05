@@ -1,12 +1,11 @@
-import logo from "../assets/images/logo.png" 
+import Brand from "./Brand";
 
 function LoadingScreen() {
   return (
-    <div className="container">
-      <div className="loading-box">
-        <img src={logo} alt="Logo"></img>
-        <div className="loader"></div>
-      </div>
+    <div className="loading-screen" role="status">
+      <Brand />
+      <span className="loader" />
+      <p>Conectando con otra línea de tiempo…</p>
     </div>
   );
 }

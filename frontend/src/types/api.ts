@@ -10,6 +10,8 @@ export interface Vote {
 
 export interface UserStatus {
   hasVoted: boolean;
+  repeatVoteGroups: number[];
+  canRepeatVoteAnyGroup: boolean;
 }
 
 export interface AdminStatus {

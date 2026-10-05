@@ -17,5 +17,10 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
-export const auth = getAuth(app);
+// Let the public festival page render before a deployment is configured.
+const configured = Boolean(
+  firebaseConfig.apiKey &&
+  firebaseConfig.authDomain &&
+  firebaseConfig.projectId,
+);
+export const auth = configured ? getAuth(initializeApp(firebaseConfig)) : null;

@@ -1,8 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
 import { DecodedIdToken } from 'firebase-admin/lib/auth/token-verifier';
-import { config } from 'dotenv';
-
-config({ path: "../.env", override: true });
 
 var rateLimitList = new Map<DecodedIdToken, { count: number; lastRequest: number }>();
 

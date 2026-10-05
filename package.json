@@ -1,4 +1,8 @@
 {
+  "scripts": {
+    "start:local": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/start-local.ps1",
+    "stop:local": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/stop-local.ps1"
+  },
   "dependencies": {
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.2",
